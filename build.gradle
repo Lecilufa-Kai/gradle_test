@@ -1,0 +1,34 @@
+plugins {
+	id "com.dorongold.task-tree" version "2.1.0"
+	id 'java'
+}
+
+apply from: "archiving.gradle"
+
+task helloWorld{
+	doLast{
+		println "Hello World! version " + version + " name " + nameCkk
+		println System.properties['system']
+	}
+}
+
+task byeWorld{
+	doLast {
+		println "Bye World"
+	}
+}
+
+task copyDocs(type: Copy){
+	from "src"
+	into "build/docs"
+	include "**/*txt"
+	includeEmptyDirs = false
+	dependsOn helloWorld
+}
+
+task createZip(type: Zip){
+	from "build/docs"
+	archiveFileName = "ckk.zip"
+	destinationDirectory = file("build/dist")
+	dependsOn copyDocs
+}

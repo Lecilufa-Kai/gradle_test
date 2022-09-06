@@ -1,0 +1,7 @@
+apply plugin: "base"
+
+task helloWorld2{
+    doLast {
+        println "helloWorld2"
+    }
+}
